@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data/queen.icon">
+    <title>سلطانتي</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fce4ec; /* خلفية وردية */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        .love-meter {
+            text-align: center;
+            position: relative;
+        }
+
+        .meter-box {
+            width: 100%;
+            height: 40px;
+            background-color: #ddd;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background-color: #ff99aa; /* وردي غامق */
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        .boxes {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #ffcccc; /* وردي */
+            color: #fff;
+            font-size: 18px;
+            line-height: 100px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .box:hover {
+            background-color: #ff99aa; /* وردي غامق */
+        }
+
+        .love-messages {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const boxes = document.querySelectorAll('.box');
+            const loveMessages = document.querySelectorAll('.love-messages p');
+            const meterFill = document.querySelector('.meter-fill');
+
+            boxes.forEach((box, index) => {
+                box.addEventListener('click', () => {
+                    // إظهار الرسالة المناسبة
+                    loveMessages.forEach(message => message.classList.add('hidden'));
+                    loveMessages[index].classList.remove('hidden');
+
+                    // تحديث مقياس الحب
+                    const percentage = (index + 1) * 33.33; // تحديد النسبة المئوية
+                    meterFill.style.width = `${percentage}%`;
+
+                    // إضافة أنميشن لتحريك الرقم
+                    animateMeter(percentage);
+
+                    // عرض "أحبك 100%" عندما يصل الشريط المئوي إلى 100%
+                    if (percentage === 100) {
+                        box.textContent = 'أحبك 100%';
+                        box.style.backgroundColor = '#ff6699'; // تغيير الخلفية لون وردي فاتح
+                        box.style.cursor = 'default'; // تعطيل التأشير عند النقر
+                        box.removeEventListener('click', () => {}); // إزالة الإستماع للنقر
+                    }
+                });
+            });
+
+            // دالة لتحريك الرقم بشكل تدريجي
+            function animateMeter(percentage) {
+                let currentWidth = 0;
+                const increment = 1;
+                const speed = 10; // سرعة الانميشن
+
+                const timer = setInterval(() => {
+                    if (currentWidth >= percentage) {
+                        clearInterval(timer);
+                    } else {
+                        currentWidth += increment;
+                        meterFill.style.width = `${currentWidth}%`;
+                    }
+                }, speed);
+            }
+        });
+    </script>
+</head>
+<body>
+    <img src="data/qq.jpg" hidden  alt="">
+    <div class="container">
+        <header>
+            <h1>نوى المحب</h1>
+        </header>
+        <main>
+            <section class="love-meter">
+                <h2>بَلى أَنا مُشتاقٌ وَعِندِيَ لَوعَةٌ       وَلَكِنَّ مِثلي لايُذاعُ لَهُ سِرُّ</h2>
+                <div class="meter-box">
+                    <div class="meter-fill"></div>
+                </div>
+                <p>اختر الصندوق لتظهر رسالة حب:</p>
+                <div class="boxes">
+                    <div class="box">انقر</div>
+                    <div class="box">انقر</div>
+                    <div class="box">انقر</div>
+                </div>
+                <div class="love-messages">
+                    <p class="hidden"> سلطانتي </p>
+                    <p class="hidden">أنتي حبيبتي الغالية!</p>
+                    <p class="hidden">رائدة في قلبي دائماً!</p>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>جميع الحقوق محفوظة لدى شركة قيس &copy; 2024</p>
+        </footer>
+    </div>
+</body>
+</html>
